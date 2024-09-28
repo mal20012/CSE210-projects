@@ -1,0 +1,4 @@
+Date, Prompt, Response
+09/28/2024, What do you most wish for tomorrow? 
+09/28/2024, What was the most challenging thing you faced today?
+09/28/2024, How did you overcome it?
