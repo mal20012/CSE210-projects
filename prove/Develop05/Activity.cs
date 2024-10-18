@@ -2,11 +2,19 @@ USing System;
 
 public class Activity
 {
+    private string _activityName;
     private string _startMessage;
     private string _endMessage;
     private string _description;
-    private int _duration;
-    static int _spinner
+    private int _duration = 0;
+    static int _spinnerCounter = 0;
+    public Activity(){
+        _activityName = " ";
+        _startMessage = _startMessage;
+        _endMessage = endMessage;
+        _description = description;
+        _duration = 15;
+    }
 
     public void DisplayStartMessage{
         _startMessage = $"Hello Welcome to the {_activityName}.";
@@ -28,7 +36,7 @@ public class Activity
          Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        while (stopwatch.ElapsedMilliseconds / 1000 < numSecondsToRun)
+        while (stopwatch.ElapsedMilliseconds / 1000 < numSeconds)
         {
             _spinnerCounter++;
             switch (_spinnerCounter % 4)
