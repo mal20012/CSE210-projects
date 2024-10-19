@@ -1,64 +1,123 @@
-USing System;
+using System;
+using System.Diagnostics;
 
 public class Activity
 {
-    private string _activityName;
-    private string _startMessage;
-    private string _endMessage;
+    private string _name;
     private string _description;
-    private int _duration = 0;
-    static int _spinnerCounter = 0;
-    public Activity(){
-        _activityName = " ";
-        _startMessage = _startMessage;
-        _endMessage = endMessage;
-        _description = description;
+    private int _duration;
+    public Activity()
+    {
+        _name = "";
+        _description = "";
         _duration = 15;
     }
-
-    public void DisplayStartMessage{
-        _startMessage = $"Hello Welcome to the {_activityName}.";
-        Console.WriteLine(_startMessage);
-        Console.WriteLine();
+    public void SetName(string name)
+    {
+        _name = name;
     }
-    public void DisplayEndMessage{
-        _endMessage = $"You have spent {_userTime} seconds of the {_activityName}.";
-
+    public void SetDescription(string description)
+    {
+        _description = description;
+    }
+    public void ShowDetails()
+    {
+        Console.WriteLine($"Welcome to the {_name}.");
         Console.WriteLine();
-        Console.WriteLine("Proud of you! See you soon!");
-        ShowSpinner(3);
+        Console.WriteLine(_description);
+    }
+    public void AskDuration()
+    {
         Console.WriteLine();
-        Console.WriteLine(_endMessage);
-        ShowSpinner(5);
+        Console.Write("How long, in seconds, would you like for your session? ");
+        string durationString = Console.ReadLine();
+        SetDuration(Convert.ToInt32(durationString));
+    }
+    public void SetDuration(int duration)
+    {
+        _duration = duration;
+    }
+    public int GetDuration()
+    {
+        return _duration;
+    }
+    public void RunActivity()
+    {
         Console.Clear();
+        ShowDetails();
+        AskDuration();
+        GetReady();
     }
-    public void ShowSpinner(int numSeconds){
-         Stopwatch stopwatch = new Stopwatch();
-        stopwatch.Start();
 
-        while (stopwatch.ElapsedMilliseconds / 1000 < numSeconds)
+    public void EndActivity()
+    {
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine($"Well done!!");
+        ShowSpinner(5);
+        Console.WriteLine();
+        Console.WriteLine($"You have completed another {_duration} seconds of the {_name}.");
+        ShowSpinner(5);
+    }
+
+    public void ShowSpinner(int totalSeconds)
+    {
+        int spinnerPosition = 25;
+        int spinWait = 500;
+
+        spinnerPosition = Console.CursorLeft;
+
+        DateTime endTime = GetEndTime(5);
+
+        while(DateTime.Now < endTime)
         {
-            _spinnerCounter++;
-            switch (_spinnerCounter % 4)
+            char[] spinChars = new char[]{'|','/','-','\\'};
+            foreach (char spinChar in spinChars)
             {
-                case 0: Console.Write("/"); break;
-                case 1: Console.Write("-"); break;
-                case 2: Console.Write("\\"); break;
-                case 3: Console.Write("|"); break;
+                Console.CursorLeft = spinnerPosition;
+                Console.Write(spinChar);
+                Thread.Sleep(spinWait);
             }
-            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-            Thread.Sleep(200);
         }
-
+        Console.CursorLeft = spinnerPosition;
         Console.Write(" ");
     }
 
-    public void ShowCountDown(int numSeconds){
-        for (int i = numSeconds; i >= 1; i--)
+    public void ShowCountDown(int totalSeconds)
+    {
+        int timerPosition = 25;
+        int timerWait = 1000;
+
+        timerPosition = Console.CursorLeft;
+
+        for (int i = 0; i <= totalSeconds; i++)
         {
-            Console.Write($"You may begin in: {i}");
-            Console.SetCursorPosition(0, Console.CursorTop);
-            Thread.Sleep(1000);
+            Console.CursorLeft = timerPosition;
+            Console.Write(totalSeconds - i);
+            Thread.Sleep(timerWait);
         }
+        Console.CursorLeft = timerPosition;
+        Console.Write(" ");
+    }
+
+    public void GetReady()
+    {
+        Console.Clear();
+        Console.WriteLine("Get Ready...");
+        ShowSpinner(5);
+    }
+    public DateTime GetEndTime(int duration)
+    {   
+        DateTime endTime = new DateTime();
+        endTime = DateTime.Now.AddSeconds(duration);
+
+        return endTime;
+    }
+
+    public DateTime GetCurrentTime()
+    {
+        DateTime currentTime = new DateTime();
+        currentTime = DateTime.Now;
+        return currentTime;
     }
 }
