@@ -49,7 +49,7 @@ public class ChecklistGoal : Goal
     {
         return _bonusTimes;
     }
-
+// creativivty is bonus
     public int GetBonusPoints()
     {
         return _bonusPoints;
@@ -102,9 +102,6 @@ public class ChecklistGoal : Goal
         }
 
     }
-    // public override string LoadGoal()
-    // {
-    //     return ($"{GetType()} | {GetName()} | {GetDescription()} | {GetPoints()} | {GetIsComplete()} | {GetBonusPoints()} | {GetCount()} | {GetBonusTimes()}");
-    // }
+    
 
 }
